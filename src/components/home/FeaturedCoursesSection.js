@@ -1,13 +1,27 @@
+'use client';
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import FadeInUp from "@/components/client/FadeInUp";
 import { CourseCard } from "@/components/cards/CourseCard";
 import { getHighRatedCourses } from '@/data/course';
-
-
+import { Modal } from '@/components/ui/Modal';
+import { EnrollmentFormV2 } from '../forms/EnrollmentFormV2';
 
 export default function FeaturedCoursesSection() {
+  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleEnrollClick = (course) => {
+    setSelectedCourse(course);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedCourse(null);
+  };
   const featuredCourses = getHighRatedCourses(["eletrotecnica", "mecanica", "seguranca-do-trabalho"]);
   return (
     <section className="py-20 bg-gray-50">
@@ -31,8 +45,8 @@ export default function FeaturedCoursesSection() {
             <FadeInUp key={course.slug} delay={0.1 * (index + 1)}>
               <div className="h-full">
                 <CourseCard 
-                  course={course} 
-                  
+                  course={course}
+                  onEnrollClick={handleEnrollClick}
                 />
               </div>
             </FadeInUp>
@@ -50,6 +64,22 @@ export default function FeaturedCoursesSection() {
             </Link>
           </div>
         </FadeInUp>
+
+        {/* Modal de Matrícula */}
+        {selectedCourse && (
+          <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
+            <EnrollmentFormV2
+              courseName={selectedCourse.nome}
+              courseTitle={selectedCourse.title || selectedCourse.nome}
+              coursePrice={selectedCourse.price}
+              onClose={handleCloseModal}
+              onSuccess={() => {
+                // Pode adicionar lógica adicional após o envio bem-sucedido
+                handleCloseModal();
+              }}
+            />
+          </Modal>
+        )}
       </div>
     </section>
   );
