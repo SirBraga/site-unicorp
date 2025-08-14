@@ -4,22 +4,8 @@ import FadeIn from '@/components/client/FadeIn';
 import { CourseCard } from '@/components/cards/CourseCard';
 import { loadMore } from '@/data/server-actions/loadMore';
 import { useState, useEffect } from 'react';
-import { Modal } from '@/components/ui/Modal';
-import { EnrollmentFormV2 } from '@/components/forms/EnrollmentFormV2';
 
-export default function CoursesSection({ coursesQuantity, initialCourses, competency }) {
-    const [selectedCourse, setSelectedCourse] = useState(null);
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleEnrollClick = (course) => {
-        setSelectedCourse(course);
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-        setSelectedCourse(null);
-    };
+export default function CoursesSection({ coursesQuantity, initialCourses, competency  }) {
 
     const [page, setPage] = useState(1);
     const [courses, setCourses] = useState(initialCourses);
@@ -57,8 +43,7 @@ export default function CoursesSection({ coursesQuantity, initialCourses, compet
                                 ...course,
                             }}
                             competency={competency}
-                            onEnrollClick={handleEnrollClick}
-                        />
+                                />
                     </FadeIn>
                 ))}
             </div>
@@ -86,24 +71,7 @@ export default function CoursesSection({ coursesQuantity, initialCourses, compet
                 </Button>
                 )}
             </div>
-
-            {/* Modal de Matrícula */}
-            {selectedCourse && (
-                <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-                    <EnrollmentFormV2
-                        courseName={selectedCourse.nome}
-                        courseTitle={selectedCourse.title || selectedCourse.nome}
-                        coursePrice={competency ? (selectedCourse.competencyPrice || selectedCourse.price) : selectedCourse.price}
-                        onClose={handleCloseModal}
-                        onSuccess={() => {
-                            // Pode adicionar lógica adicional após o envio bem-sucedido
-                            handleCloseModal();
-                        }}
-                        competency={competency}
-                    />
-                </Modal>
-            )}
-        </main>
+        </main >
 
 
     )
