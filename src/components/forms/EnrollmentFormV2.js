@@ -296,7 +296,7 @@ export function EnrollmentFormV2({
                 Processando...
               </>
             ) : (
-              'Enviar Dados'
+              'Tenho Interesse'
             )}
           </Button>
 
