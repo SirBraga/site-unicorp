@@ -178,7 +178,7 @@ export function CourseCompetencyDetailsClient({ course }) {
                   </p>
                   
                   {/* Formulário de Matrícula Direto */}
-                  <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20 mt-4">
+                  <div className="">
                     <h4 className="text-white text-xl font-bold mb-4 text-center">Garanta sua vaga agora mesmo</h4>
                     <p className="text-blue-100 text-sm text-center mb-4">Preencha os dados abaixo e dê o primeiro passo na sua jornada profissional</p>
                     <EnrollmentFormV2 
