@@ -182,7 +182,7 @@ export function CourseDetailsClient({ course }) {
                       courseName={course.nome}
                       courseTitle={course.nome}
                       coursePrice={course.price}
-                      competency={course.competency}
+                      competency={false}
                       onSuccess={handleEnrollmentSuccess}
                       compact={true}
                     />
